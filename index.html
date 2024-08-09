@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D&D Scenārija Veidotājs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        fieldset {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #fff;
+        }
+
+        legend {
+            font-weight: bold;
+        }
+
+        label {
+            display: block;
+            margin: 5px 0;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #scenario-result {
+            border: 1px solid #ddd;
+            padding: 10px;
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <h1>D&D Scenārija Veidotājs</h1>
+    <form id="scenario-form">
+        <fieldset>
+            <legend>Stāsta Pamats</legend>
+            <label for="theme">Galvenā tēma:</label>
+            <input type="text" id="theme" name="theme" required>
+            <label for="conflict">Galvenais konflikts:</label>
+            <input type="text" id="conflict" name="conflict" required>
+            <label for="goals">Mērķi:</label>
+            <input type="text" id="goals" name="goals" required>
+        </fieldset>
+
+        <fieldset>
+            <legend>Pasaules Uzbūve</legend>
+            <label for="world">Vide:</label>
+            <input type="text" id="world" name="world" required>
+            <label for="locations">Galvenās vietas:</label>
+            <input type="text" id="locations" name="locations" required>
+            <label for="society">Sabiedrība:</label>
+            <input type="text" id="society" name="society" required>
+        </fieldset>
+
+        <fieldset>
+            <legend>Notikumi un Piedzīvojumi</legend>
+            <label for="start">Piedzīvojuma sākums:</label>
+            <input type="text" id="start" name="start" required>
+            <label for="events">Galvenie notikumi:</label>
+            <input type="text" id="events" name="events" required>
+            <label for="end">Noslēgums:</label>
+            <input type="text" id="end" name="end" required>
+        </fieldset>
+
+        <fieldset>
+            <legend>Tēli un Ienaidnieki</legend>
+            <label for="characters">Galvenie tēli:</label>
+            <input type="text" id="characters" name="characters" required>
+            <label for="enemies">Ienaidnieki:</label>
+            <input type="text" id="enemies" name="enemies" required>
+        </fieldset>
+
+        <button type="button" onclick="generatePDF()">Lejupielādēt PDF</button>
+    </form>
+
+    <h2>Scenārija Rezultāts:</h2>
+    <div id="scenario-result"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        function generatePDF() {
+            const { jsPDF } = window.jspdf;
+
+            const theme = document.getElementById('theme').value;
+            const conflict = document.getElementById('conflict').value;
+            const goals = document.getElementById('goals').value;
+            const world = document.getElementById('world').value;
+            const locations = document.getElementById('locations').value;
+            const society = document.getElementById('society').value;
+            const start = document.getElementById('start').value;
+            const events = document.getElementById('events').value;
+            const end = document.getElementById('end').value;
+            const characters = document.getElementById('characters').value;
+            const enemies = document.getElementById('enemies').value;
+
+            const doc = new jsPDF();
+            doc.setFontSize(16);
+            doc.text('D&D Scenārija Veidotājs', 10, 10);
+            doc.setFontSize(12);
+            doc.text('Stāsta Pamats', 10, 20);
+            doc.text(`Galvenā tēma: ${theme}`, 10, 30);
+            doc.text(`Galvenais konflikts: ${conflict}`, 10, 40);
+            doc.text(`Mērķi: ${goals}`, 10, 50);
+
+            doc.text('Pasaules Uzbūve', 10, 60);
+            doc.text(`Vide: ${world}`, 10, 70);
+            doc.text(`Galvenās vietas: ${locations}`, 10, 80);
+            doc.text(`Sabiedrība: ${society}`, 10, 90);
+
+            doc.text('Notikumi un Piedzīvojumi', 10, 100);
+            doc.text(`Piedzīvojuma sākums: ${start}`, 10, 110);
+            doc.text(`Galvenie notikumi: ${events}`, 10, 120);
+            doc.text(`Noslēgums: ${end}`, 10, 130);
+
+            doc.text('Tēli un Ienaidnieki', 10, 140);
+            doc.text(`Galvenie tēli: ${characters}`, 10, 150);
+            doc.text(`Ienaidnieki: ${enemies}`, 10, 160);
+
+            doc.save('DD_Scenarijs.pdf');
+        }
+    </script>
+</body>
+</html>
